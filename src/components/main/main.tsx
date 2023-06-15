@@ -5,21 +5,30 @@ import "./main.scss";
 export default class Main extends React.Component {
   state = {
     listInputValue: "",
-    list: [] // list elementlari ro'yxati
+    list: []
   };
 
   handleClick = () => {
-    const { listInputValue } = this.state;
-    this.setState({ listInputValue: "" });
-    // List komponentini qo'shish
-    const listElement = <List key={listInputValue} inputValue={listInputValue} />;
-    // List elementini aylantirish
-    const newList = [...this.state.list, listElement]; // <- Ro'yxatga qo'shish uchun rest operatorini ishlatish
-    this.setState({ list: newList });
+    this.addListElement();
   };
 
-  handleInputChange = (e: any) => {
+  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ listInputValue: e.target.value });
+  };
+
+  handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      this.addListElement();
+    }
+  };
+
+  addListElement = () => {
+    const { listInputValue } = this.state;
+    if (listInputValue) {
+      const listElement = <List key={listInputValue} inputValue={listInputValue} />;
+      const newList = [...this.state.list, listElement];
+      this.setState({ list: newList, listInputValue: "" });
+    }
   };
 
   render() {
@@ -35,6 +44,7 @@ export default class Main extends React.Component {
               placeholder="Write To Do"
               value={listInputValue}
               onChange={this.handleInputChange}
+              onKeyPress={this.handleKeyPress}
             />
             <button onClick={this.handleClick}>Add To Do</button>
           </div>
