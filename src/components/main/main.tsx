@@ -16,7 +16,7 @@ export default class Main extends React.Component {
     this.setState({ listInputValue: e.target.value });
   };
 
-  handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       this.addListElement();
     }
@@ -29,6 +29,8 @@ export default class Main extends React.Component {
       const newList = [...this.state.list, listElement];
       this.setState({ list: newList, listInputValue: "" });
     }
+
+    else alert("Iltimos Inputga Qiymat kiriting!🙌");
   };
 
   render() {
@@ -40,11 +42,7 @@ export default class Main extends React.Component {
         <div className="toDoList">
           <div className="inpBtn">
             <input
-              type="text"
-              placeholder="Write To Do"
-              value={listInputValue}
-              onChange={this.handleInputChange}
-              onKeyPress={this.handleKeyPress}
+              type="text" placeholder="Write To Do" value={listInputValue} onChange={this.handleInputChange} onKeyPress={this.handleKey}
             />
             <button onClick={this.handleClick}>Add To Do</button>
           </div>
@@ -54,3 +52,5 @@ export default class Main extends React.Component {
     );
   }
 }
+
+// 
