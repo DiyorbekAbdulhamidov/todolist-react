@@ -1,8 +1,8 @@
 import React from "react";
-import List from "./list.tsx";
+import List from "./list";
 import "./main.scss";
 
-export default class Main extends React.Component {
+class Main extends React.Component {
   state = {
     listInputValue: "",
     list: []
@@ -12,11 +12,11 @@ export default class Main extends React.Component {
     this.addListElement();
   };
 
-  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  handleInputChange = (e:any) => {
     this.setState({ listInputValue: e.target.value });
   };
 
-  handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  handleKey = (e: any) => {
     if (e.key === "Enter") {
       this.addListElement();
     }
@@ -25,12 +25,21 @@ export default class Main extends React.Component {
   addListElement = () => {
     const { listInputValue } = this.state;
     if (listInputValue) {
-      const listElement = <List key={listInputValue} inputValue={listInputValue} />;
+      const listElement = (
+        <List
+          key={listInputValue}
+          inputValue={listInputValue}
+          editBtn="edit"
+          deleteBtn="delete"
+          checkBtn="check_circle"
+        />
+
+      );
       const newList = [...this.state.list, listElement];
       this.setState({ list: newList, listInputValue: "" });
+    } else {
+      alert("Iltimos Inputga Qiymat kiriting!🙌");
     }
-
-    else alert("Iltimos Inputga Qiymat kiriting!🙌");
   };
 
   render() {
@@ -42,7 +51,11 @@ export default class Main extends React.Component {
         <div className="toDoList">
           <div className="inpBtn">
             <input
-              type="text" placeholder="Write To Do" value={listInputValue} onChange={this.handleInputChange} onKeyPress={this.handleKey}
+              type="text"
+              placeholder="Write To Do"
+              value={listInputValue}
+              onChange={this.handleInputChange}
+              onKeyPress={this.handleKey}
             />
             <button onClick={this.handleClick}>Add To Do</button>
           </div>
@@ -52,4 +65,5 @@ export default class Main extends React.Component {
     );
   }
 }
-// 
+
+export default Main;

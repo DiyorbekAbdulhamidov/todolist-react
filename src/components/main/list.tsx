@@ -3,19 +3,23 @@ import "./main.scss";
 
 interface ListProps {
   inputValue: string;
+  editBtn : string,
+  deleteBtn : string,
+  checkBtn : string
 }
 
 export default class List extends React.Component<ListProps> {
   render() {
-    const { inputValue } = this.props;
+    const { inputValue, editBtn, deleteBtn, checkBtn } = this.props;
+
 
     return (
       <div className="list">
         <p>{inputValue}</p>
         <div className="icons">
-          <span className="material-symbols-outlined editIcon">edit</span>
-          <span className="material-symbols-outlined deleteIcon">delete</span>
-          <span className="material-symbols-outlined checkIcon">check_circle</span>
+          <span className="material-symbols-outlined editIcon">{editBtn}</span>
+          <span className="material-symbols-outlined deleteIcon">{deleteBtn}</span>
+          <span className="material-symbols-outlined checkIcon">{checkBtn}</span>
         </div>
       </div>
     );
