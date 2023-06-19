@@ -46,7 +46,7 @@ class Main extends React.Component<{}, MainState> {
       if (listItem.key === item) {
         return {
           ...listItem,
-          completed: true,
+          completed: !listItem.completed
         };
       }
       return listItem;
