@@ -6,17 +6,22 @@ interface ListProps {
   editBtn: string;
   deleteBtn: string;
   checkBtn: string;
+  completed: boolean;
   onDelete: () => void;
   onCheck: () => void;
 }
 
 export default class List extends React.Component<ListProps> {
   render() {
-    const { inputValue, editBtn, deleteBtn, checkBtn } = this.props;
+    const { inputValue, editBtn, deleteBtn, checkBtn, completed } = this.props;
+
+    const textStyle = {
+      textDecoration: completed ? "line-through" : "none"
+    };
 
     return (
       <div className="list">
-        <p>{inputValue}</p>
+        <p style={textStyle}>{inputValue}</p>
         <div className="icons">
           <span className="material-symbols-outlined editIcon">{editBtn}</span>
           <span onClick={this.props.onDelete} className="material-symbols-outlined deleteIcon">{deleteBtn}</span>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, KeyboardEvent } from "react";
 import List from "./list";
 import "./main.scss";
 
@@ -8,6 +8,7 @@ interface ListItem {
   editBtn: string;
   deleteBtn: string;
   checkBtn: string;
+  completed: boolean;
 }
 
 interface MainState {
@@ -25,11 +26,11 @@ class Main extends React.Component<{}, MainState> {
     this.addListElement();
   };
 
-  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     this.setState({ listInputValue: e.target.value });
   };
 
-  handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  handleKey = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       this.addListElement();
     }
@@ -41,13 +42,17 @@ class Main extends React.Component<{}, MainState> {
   };
 
   handleCheck = (item: string) => {
-    // const checkedList = this.state.list.map((listItem) => {
-    //   if (listItem.key === item) {
-    //     return { ...listItem, checked: true };
-    //   }
-    //   return listItem;
-    // });
-    // this.setState({ list: checkedList });
+    const updatedList = this.state.list.map((listItem) => {
+      if (listItem.key === item) {
+        return {
+          ...listItem,
+          completed: true,
+        };
+      }
+      return listItem;
+    });
+
+    this.setState({ list: updatedList });
   };
 
   addListElement = () => {
@@ -58,11 +63,12 @@ class Main extends React.Component<{}, MainState> {
         inputValue: listInputValue,
         editBtn: "edit",
         deleteBtn: "delete",
-        checkBtn: "check_circle"
+        checkBtn: "check_circle",
+        completed: false,
       };
       const newList = [...this.state.list, listElement];
       this.setState({ list: newList, listInputValue: "" });
-    }
+    } 
     else {
       alert("Iltimos Inputga Qiymat kiriting!🙌");
     }
@@ -76,7 +82,12 @@ class Main extends React.Component<{}, MainState> {
         <h1>Welcome To Do List!</h1>
         <div className="toDoList">
           <div className="inpBtn">
-            <input type="text" placeholder="Write To Do" value={listInputValue} onChange={this.handleInputChange} onKeyPress={this.handleKey}
+            <input
+              type="text"
+              placeholder="Write To Do"
+              value={listInputValue}
+              onChange={this.handleInputChange}
+              onKeyPress={this.handleKey}
             />
             <button onClick={this.handleClick}>Add To Do</button>
           </div>
@@ -87,6 +98,7 @@ class Main extends React.Component<{}, MainState> {
               editBtn={item.editBtn}
               deleteBtn={item.deleteBtn}
               checkBtn={item.checkBtn}
+              completed={item.completed}
               onDelete={() => this.handleDelete(item.key)}
               onCheck={() => this.handleCheck(item.key)}
             />
