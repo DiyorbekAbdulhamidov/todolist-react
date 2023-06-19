@@ -55,6 +55,21 @@ class Main extends React.Component<{}, MainState> {
     this.setState({ list: updatedList });
   };
 
+  handleEdit = (item: string) => {
+    // const updatedList = this.state.list.map((listItem) => {
+    //   if (listItem.key === item) {
+    //     return {
+    //       ...listItem,
+    //       inputValue: listItem.inputValue !== this.state.listInputValue ? this.state.listInputValue : listItem.inputValue,
+    //     };
+    //   }
+    //   return listItem;
+    // });
+  
+    // this.setState({ list: updatedList });
+  };
+  
+  
   addListElement = () => {
     const { listInputValue } = this.state;
     if (listInputValue) {
@@ -82,12 +97,7 @@ class Main extends React.Component<{}, MainState> {
         <h1>Welcome To Do List!</h1>
         <div className="toDoList">
           <div className="inpBtn">
-            <input
-              type="text"
-              placeholder="Write To Do"
-              value={listInputValue}
-              onChange={this.handleInputChange}
-              onKeyPress={this.handleKey}
+            <input type="text" placeholder="Write To Do" value={listInputValue} onChange={this.handleInputChange} onKeyPress={this.handleKey}
             />
             <button onClick={this.handleClick}>Add To Do</button>
           </div>
@@ -101,6 +111,7 @@ class Main extends React.Component<{}, MainState> {
               completed={item.completed}
               onDelete={() => this.handleDelete(item.key)}
               onCheck={() => this.handleCheck(item.key)}
+              onEdit={() => this.handleEdit(item.key)}
             />
           ))}
         </div>

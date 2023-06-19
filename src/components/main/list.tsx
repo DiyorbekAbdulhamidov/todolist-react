@@ -9,6 +9,7 @@ interface ListProps {
   completed: boolean;
   onDelete: () => void;
   onCheck: () => void;
+  onEdit: () => void;
 }
 
 export default class List extends React.Component<ListProps> {
@@ -23,8 +24,8 @@ export default class List extends React.Component<ListProps> {
       <div className="list">
         <p style={textStyle}>{inputValue}</p>
         <div className="icons">
-          <span className="material-symbols-outlined editIcon">{editBtn}</span>
-          <span onClick={this.props.onDelete} className="material-symbols-outlined deleteIcon">{deleteBtn}</span>
+          <span onClick={this.props.onEdit}  className="material-symbols-outlined editIcon">{editBtn}</span>
+          <span onClick={this.props.onDelete}className="material-symbols-outlined deleteIcon">{deleteBtn}</span>
           <span onClick={this.props.onCheck} className="material-symbols-outlined checkIcon">{checkBtn}</span>
         </div>
       </div>
